@@ -8,6 +8,7 @@ export default function Form() {
         {txt: 'Sport', id: uuidv4()},
         {txt: 'Coder avec React', id: uuidv4()},
     ])
+    const [stateInput, setSateInput] = useState();
 
     const deleteElement = id => {
         // console.log(id);
@@ -16,11 +17,33 @@ export default function Form() {
         })
         setDataArr(filteredState);
     }
+
+    const addTodo = e => {
+        e.preventDefault();
+        const newArr = [...dataArr]
+
+        const newTodo = {};
+        newTodo.txt = stateInput;
+        newTodo.id = uuidv4();
+
+        newArr.push(newTodo);
+        setDataArr(newArr);
+        setSateInput('');
+    }
+
+    const linkedInput = e => {
+        setSateInput(e);
+    }
     return (
         <div className="m-auto px-4 col-12 col-sm-10 col-lg-6">
-            <form className="mb-3">
+            <form onSubmit={addTodo} className="mb-3">
                 <label htmlFor="todo" className="form-label mt-3">Chose à faire</label>
-                <input type="text" className="form-control" id="todo"/>
+                <input type="text"
+                       value={stateInput}
+                       onInput={e => linkedInput(e.target.value)}
+                       className="form-control"
+                       id="todo"
+                />
 
                 <button className="mt-2 btn btn-primary d-block">Envoyer</button>
             </form>

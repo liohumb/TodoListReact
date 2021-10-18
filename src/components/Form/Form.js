@@ -2,6 +2,11 @@ import {useState} from "react";
 import Items from "../Items/Items";
 
 export default function Form() {
+    const [dataArr, setDataArr] = useState([
+        {txt: 'Promener le chien'},
+        {txt: 'Sport'},
+        {txt: 'Coder avec React'},
+    ])
     return (
         <div className="m-auto px-4 col-12 col-sm-10 col-lg-6">
             <form className="mb-3">
@@ -13,9 +18,13 @@ export default function Form() {
 
             <h2>Liste des choses à faire : </h2>
             <ul className="list-group">
-                <Items/>
-                <Items/>
-                <Items/>
+                {dataArr.map((item, index) => {
+                    return (
+                        <Items
+                        txt={item.txt}
+                        key={index}/>
+                    )
+                })}
             </ul>
         </div>
     );
